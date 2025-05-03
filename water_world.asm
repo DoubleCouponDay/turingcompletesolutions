@@ -12,8 +12,9 @@ label Loop
 #read the current column height
 ADD|IMMB input 0 reg2
 #store the column height in ram, first array
-
+STORE reg0 reg1 0 
 #if greater than previous column, start scanning backwards for the next local maximum
+IFGREAT
 
 label WindbackLoop
 	#volume = difference of start point minus current column
