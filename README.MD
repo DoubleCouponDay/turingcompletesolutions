@@ -13,7 +13,7 @@ Each byte can be mapped to a human readable Assembly Language.
 
 The first Byte can have the Logical Or operator applied to combine an Operation Code with an Optional Command for Immediate Values or each bus.
 
-    ADD|IMMB reg0 1 reg2 #adds 1 to reg0 and send the result to reg2
+    ADD|IMMB reg0 1 reg2 #Adds 1 to reg0 and send the result to reg2
 
 ## Addresses
 
@@ -141,15 +141,39 @@ The first Byte can have the Logical Or operator applied to combine an Operation 
 
 - 32 = IFEQ
 
+    Compares the left address with the right address and updates the program counter to the source code label given to the data address, if they are equal.
+
+    IFEQ left_address right_address source_label
+
 - 33 = IFNEQ
+
+    Compares the left address with the right address and updates the program counter to the source code label given to the data address, if they are equal.
+
+    IFEQ left_address right_address source_label
 
 - 34 = IFLESS
 
+    Compares the left address with the right address and updates the program counter to the source code label given to the data address, if left is less than the right.
+
+    IFLESS left_address right_address source_label
+
 - 35 = IFLESSE
+
+    Compares the left address with the right address and updates the program counter to the source code label given to the data address, if left is less than or equal to the right.
+
+    IFLESSE left_address right_address source_label
 
 - 36 = IFGREAT
 
+    Compares the left address with the right address and updates the program counter to the source code label given to the data address, if left is greater than the right.
+
+    IFGREAT left_address right_address source_label
+
 - 37 = IGREATE
+
+    Compares the left address with the right address and updates the program counter to the source code label given to the data address, if left is greater than or equal to the right.
+
+    IFGREATE left_address right_address source_label
 
 - 38 = CALL
 
