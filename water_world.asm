@@ -19,7 +19,7 @@ label Loop
 		IFEQ|IMMALL 0 0 Loop
 
 	label DontSkipColumn
-	IFLESS reg2 reg5 DontWindBack #only sum when a positive gradient is detected
+	IFLESSE reg2 reg5 DontWindBack #only sum when a positive gradient is detected
 
 	label WindbackLoop #start scanning backwards for the next local maximum
 		SUB|IMMB reg0 1 reg0 #decrement 
