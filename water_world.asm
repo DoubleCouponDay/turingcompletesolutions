@@ -12,7 +12,7 @@ label Loop
 	STORE reg0 reg2 0 #store the column height in ram, first array
 	PUSH reg0 0 0 #save point column index
 
-	IFNEQ|IMMB reg2 0 DontSkipColumn #skip the first column	
+	IFNEQ|IMMB reg0 0 DontSkipColumn #skip the first column	
 		POP 0 0 reg0 #remove save point
 		ADD|IMMB reg2 0 reg5 #make current column the previous column
 		ADD|IMMB reg0 1 reg0 #increment current column index
