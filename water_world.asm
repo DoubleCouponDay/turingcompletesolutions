@@ -26,10 +26,11 @@ label Loop
 		ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column
 		LOAD reg0 0 reg3 #load the previous column
 		SUB reg2 reg3 reg4 #volume = difference of start point minus current windback column		
-		IFLESSE|IMMB reg4 0 StopWinding #if its bigger than or equal to the starting column, stop winding back
+		IFLESSE|IMMB reg4 0 DontWindBack #if its bigger than or equal to the starting column, stop winding back
+		IFEQ|IMMB reg1 16 SkipSaving #skip first column if it has no backing
 		STORE reg1 reg4 0 #store the volume in second array 
+		label SkipSaving
 		IFNEQ|IMMB reg1 16 WindbackLoop
-		label StopWinding
 
 	label DontWindBack
 	POP 0 0 reg0 #remove save point
