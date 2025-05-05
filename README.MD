@@ -151,29 +151,37 @@ The first Byte can have the Logical Or operator applied to combine an Operation 
 
     IFEQ left_address right_address source_label
 
-- 34 = IFLESS
+- 34 = IFLESSU
+
+    This is an unsigned instruction.
 
     Compares the left address with the right address and updates the program counter to the source code label given to the data address, if left is less than the right.
 
-    IFLESS left_address right_address source_label
+    IFLESSU left_address right_address source_label
 
-- 35 = IFLESSE
+- 35 = IFLESSEU
+
+    This is an unsigned instruction.
 
     Compares the left address with the right address and updates the program counter to the source code label given to the data address, if left is less than or equal to the right.
 
-    IFLESSE left_address right_address source_label
+    IFLESSEU left_address right_address source_label
 
-- 36 = IFGREAT
+- 36 = IFGREATU
+
+    This is an unsigned instruction.
 
     Compares the left address with the right address and updates the program counter to the source code label given to the data address, if left is greater than the right.
 
-    IFGREAT left_address right_address source_label
+    IFGREATU left_address right_address source_label
 
-- 37 = IGREATE
+- 37 = IFGREATEU
+
+    This is an unsigned instruction.
 
     Compares the left address with the right address and updates the program counter to the source code label given to the data address, if left is greater than or equal to the right.
 
-    IFGREATE left_address right_address source_label
+    IFGREATEU left_address right_address source_label
 
 - 38 = CALL
 
@@ -186,6 +194,38 @@ The first Byte can have the Logical Or operator applied to combine an Operation 
     Pop the program counter value off the stack and set the program counter to it's value.
 
     RETURN 0 0 0
+
+- 40 = IFLESSS
+
+    This is a signed instruction.
+
+    Compares the left address with the right address and updates the program counter to the source code label given to the data address, if left is less than the right.
+
+    IFLESSS left_address right_address source_label
+
+- 41 = IFLESSES
+
+    This is a signed instruction.
+
+    Compares the left address with the right address and updates the program counter to the source code label given to the data address, if left is less than or equal to the right.
+
+    IFLESSES left_address right_address source_label
+
+- 42 = IFGREATS
+
+    This is a signed instruction.
+
+    Compares the left address with the right address and updates the program counter to the source code label given to the data address, if left is greater than the right.
+
+    IFGREATS left_address right_address source_label
+
+- 43 = IFGREATES
+
+    This is a signed instruction.
+
+    Compares the left address with the right address and updates the program counter to the source code label given to the data address, if left is greater than or equal to the right.
+
+    IFGREATES left_address right_address source_label
 
 - 64 = IMMB
 

@@ -36,10 +36,10 @@ label bubblesortloop
 		LOAD 0 0 reg2 #pull first ram value
 		CALL 0 0 IncrementRamPointer
 		LOAD 0 0 reg3 #pull second ram value
-		IFGREATE reg3 reg2 dontswap #compare and swap if first is greater		
+		IFGREATES reg3 reg2 dontswap #compare and swap if first is greater		
 		CALL 0 0 swapfunc
 		label dontswap
-		IFLESS|IMMB reg0 14 swaploop
+		IFLESSU|IMMB reg0 14 swaploop
 	
 	IFEQ|IMMB reg5 1 bubblesortloop #loop until no swap occurred 
 

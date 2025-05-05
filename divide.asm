@@ -5,7 +5,7 @@ ADD|IMMB input 0 reg2
 
 label loop
 #if denominator is greater than numerator, subtract reg2 from reg1 and output to reg0
-IFLESS reg1 reg2 endloop
+IFLESSU reg1 reg2 endloop
 	# subtract reg2 from reg1
 	SUB reg1 reg2 reg0
 	#move reg0 to reg1
