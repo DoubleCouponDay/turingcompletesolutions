@@ -1,0 +1,5 @@
+IMM|3
+CPY|REG0|reg1
+CPY|IN|reg2
+CMP|and
+CPY|REG3|out
