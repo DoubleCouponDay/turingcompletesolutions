@@ -35,10 +35,10 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column
 	LOAD reg0 0 reg3 #load the previous column
 	SUB reg2 reg3 reg4 #volume = difference of start point minus current windback column		
-	IFLESSES|IMMB reg4 0 ContinueWinding #if its bigger than or equal to the starting column, stop winding back
+	IFGREATS|IMMB reg4 0 ContinueWinding #if its bigger than or equal to the starting column, stop winding back
 	RETURN 0 0 0
 	label ContinueWinding
-	IFEQ|IMMB reg1 16 SkipSaving #skip first column if it has no backing
+	IFEQ|IMMB reg0 0 SkipSaving #skip first column if it has no backing
 	STORE reg1 reg4 0 #store the volume in second array 
 	label SkipSaving
 	IFNEQ|IMMB reg1 16 WindbackLoop
