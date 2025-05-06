@@ -13,24 +13,14 @@ label Loop
 	PUSH reg0 0 0 #save point column index
 
 	IFNEQ|IMMB reg0 0 DontSkipColumn #skip the first column	
-		POP 0 0 reg0 #remove save point
-		ADD|IMMB reg2 0 reg5 #make current column the previous column
-		ADD|IMMB reg0 1 reg0 #increment current column index
-		IFEQ|IMMALL 0 0 Loop
+	POP 0 0 reg0 #remove save point
+	ADD|IMMB reg2 0 reg5 #make current column the previous column
+	ADD|IMMB reg0 1 reg0 #increment current column index
+	IFEQ|IMMALL 0 0 Loop
 
 	label DontSkipColumn
 	IFLESSEU reg2 reg5 DontWindBack #only sum when a positive gradient is detected
-
-	label WindbackLoop #start scanning backwards for the next local maximum
-		SUB|IMMB reg0 1 reg0 #decrement 
-		ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column
-		LOAD reg0 0 reg3 #load the previous column
-		SUB reg2 reg3 reg4 #volume = difference of start point minus current windback column		
-		IFLESSES|IMMB reg4 0 DontWindBack #if its bigger than or equal to the starting column, stop winding back
-		IFEQ|IMMB reg1 16 SkipSaving #skip first column if it has no backing
-		STORE reg1 reg4 0 #store the volume in second array 
-		label SkipSaving
-		IFNEQ|IMMB reg1 16 WindbackLoop
+	CALL 0 0 WindbackLoop
 
 	label DontWindBack
 	POP 0 0 reg0 #remove save point
@@ -39,6 +29,21 @@ label Loop
 	IFNEQ|IMMB reg0 16 Loop #if column index within bounds, continue looping
 
 ADD|IMMB reg1 16 reg1 #reset second array index
+CALL 0 0 SumLoop
+
+label WindbackLoop #start scanning backwards for the next local maximum
+	SUB|IMMB reg0 1 reg0 #decrement 
+	ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column
+	LOAD reg0 0 reg3 #load the previous column
+	SUB reg2 reg3 reg4 #volume = difference of start point minus current windback column		
+	IFLESSES|IMMB reg4 0 ContinueWinding #if its bigger than or equal to the starting column, stop winding back
+	RETURN 0 0 0
+	label ContinueWinding
+	IFEQ|IMMB reg1 16 SkipSaving #skip first column if it has no backing
+	STORE reg1 reg4 0 #store the volume in second array 
+	label SkipSaving
+	IFNEQ|IMMB reg1 16 WindbackLoop
+	RETURN 0 0 0
 
 label SumLoop
 	LOAD reg1 0 reg4 #load calculated volume
