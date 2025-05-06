@@ -26,14 +26,12 @@ label Loop
 	ADD|IMMB reg0 1 reg0 #increment column loop index
 	IFNEQ|IMMB reg0 16 Loop #if column index within bounds, continue looping
 
-ADD|IMMALL 0 0 reg1
-ADD|IMMALL 0 0 reg5
-ADD|IMMB reg1 16 reg1 #reset second array index
+ADD|IMMALL 0 0 reg5 #clear previous registers for second usage 
+ADD|IMMALL 16 0 reg1 #reset second array index
 CALL 0 0 SumLoop
 
 label WindbackLoop #start scanning backwards for the next local maximum
 	SUB|IMMB reg0 1 reg0 #decrement 
-	ADD|IMMALL 0 0 reg1 #clear reg1
 	ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column
 	LOAD reg0 0 reg3 #load the previous column
 	SUB reg2 reg3 reg4 #volume = difference of start point minus current windback column		
