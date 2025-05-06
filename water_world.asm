@@ -17,22 +17,23 @@ label Loop
 	ADD|IMMB reg2 0 reg5 #make current column the previous column
 	ADD|IMMB reg0 1 reg0 #increment current column index
 	IFEQ|IMMALL 0 0 Loop
-
 	label DontSkipColumn
 	IFLESSEU reg2 reg5 DontWindBack #only sum when a positive gradient is detected
 	CALL 0 0 WindbackLoop
-
 	label DontWindBack
 	POP 0 0 reg0 #remove save point
 	ADD|IMMB reg2 0 reg5 #make current column the previous column
 	ADD|IMMB reg0 1 reg0 #increment column loop index
 	IFNEQ|IMMB reg0 16 Loop #if column index within bounds, continue looping
 
+ADD|IMMALL 0 0 reg1
+ADD|IMMALL 0 0 reg5
 ADD|IMMB reg1 16 reg1 #reset second array index
 CALL 0 0 SumLoop
 
 label WindbackLoop #start scanning backwards for the next local maximum
 	SUB|IMMB reg0 1 reg0 #decrement 
+	ADD|IMMALL 0 0 reg1 #clear reg1
 	ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column
 	LOAD reg0 0 reg3 #load the previous column
 	SUB reg2 reg3 reg4 #volume = difference of start point minus current windback column		
@@ -48,7 +49,7 @@ label WindbackLoop #start scanning backwards for the next local maximum
 label SumLoop
 	LOAD reg1 0 reg4 #load calculated volume
 	ADD reg4 reg5 reg5 #add to the sum
-	ADD|IMMB reg1 1 reg4 #increment second array index
-	IFNEQ|IMMB 31 SumLoop #loop over every second array item
+	ADD|IMMB reg1 1 reg1 #increment second array index
+	IFNEQ|IMMB reg1 31 SumLoop #loop over every second array item
 
 ADD|IMMB reg5 0 output #send the calculation to output
