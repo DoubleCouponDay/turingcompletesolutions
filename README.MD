@@ -107,7 +107,7 @@ The first Byte can have the Logical Or operator applied to combine an Operation 
 
     Sends the value in the location pointed to by the left_address argument to the top of the stack.
 
-    PUSH left_address 0 0
+    PUSH 0 0 left_address
 
 - 9 = POP
 
