@@ -20,16 +20,13 @@ label Loop
 	IFEQ|IMMALL 0 0 Loop
 	label DontSkipColumn
 
-	IFLESSEU reg2 reg3 DontSaveLargest
-	ADD|IMMB reg2 0 reg3 #the new largest column
-	IFEQ|IMMALL 0 0 DontWindBack #skip checking this column since it has no backing
-	label DontSaveLargest
-
 	IFLESSEU reg2 reg5 DontWindBack #only sum when a positive gradient is detected
 	PUSH reg0 0 0 #save point column index
-	PUSH reg3 0 0 #save largest column
+	CALL 0 0 FindStartingColumn
+	POP 0 0 reg0 #remove save point
+	IFEQ|IMMB reg3 0 DontWindBack
+	PUSH reg0 0 0 #save point column index
 	CALL 0 0 WindbackLoop
-	POP 0 0 reg3 #remove largest column
 	POP 0 0 reg0 #remove save point
 
 	label DontWindBack
@@ -37,22 +34,31 @@ label Loop
 	ADD|IMMB reg0 1 reg0 #increment column loop index
 	IFNEQ|IMMB reg0 16 Loop #if column index within bounds, continue looping
 
-ADD|IMMALL 0 0 reg5 #clear previous registers for second usage 
+ADD|IMMALL 0 0 reg5 #clear previous registers for second usage
 ADD|IMMALL 16 0 reg1 #reset second array index
 CALL 0 0 SumLoop
 
 label WindbackLoop #start scanning backwards for the next local maximum
-	SUB|IMMB reg0 1 reg0 #decrement 
+	SUB|IMMB reg0 1 reg0 #decrement
 	ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column
 	LOAD reg0 0 reg3 #load the previous column
-	SUB reg2 reg3 reg4 #volume = difference of start point minus current windback column		
-	IFGREATS|IMMB reg4 0 ContinueWinding #if its bigger than or equal to the starting column, stop winding back
+	IFEQ|IMMB reg0 0 NotSmallestIndex #boundary check
 	RETURN 0 0 0
-	label ContinueWinding
+	label NotSmallestIndex	
+	IFLESSU reg3 reg2 WindbackLoop #stop winding back once a same height column is found
+
+	label WindForwards
+	ADD|IMMB reg0 1 reg0 #increment
+	ADD|IMMB reg0 16 reg1
+	LOAD reg0 0 reg3
+	SUB reg2 reg3 reg4 #volume = difference of start point minus current windback column
+	IFGREATU|IMMB reg4 0 NotStartingIndex #if its bigger than or equal to the starting column, stop winding back
+	RETURN 0 0 0
+	label NotStartingIndex
 	IFEQ|IMMB reg0 0 SkipSaving #skip first column if it has no backing
 	STORE reg1 reg4 0 #store the volume in second array 
 	label SkipSaving
-	IFNEQ|IMMB reg1 16 WindbackLoop
+	IFNEQ|IMMB reg0 0 WindForwards #boundary check
 	RETURN 0 0 0
 
 label SumLoop
