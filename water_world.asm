@@ -49,7 +49,7 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	LOAD reg0 0 reg3 #load the previous column
 	IFLESSU reg3 reg2 WindbackLoop #stop winding back once a same height column is found
 	
-	ADD|IMMB reg3 0 reg5 #use this as the end point column index
+	ADD|IMMB reg3 0 reg5 #use this as the end point column
 	POP 0 0 reg4
 	POP 0 0 reg0
 	PUSH reg0 0 0
@@ -57,7 +57,9 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	ADD|IMMALL 0 0 reg4 #clear temp function pointer
 	LOAD reg0 0 reg2 #reset starting column size
 	
-	label WindForwards
+	label WindBackTwo
+	SUB|IMMB reg0 1 reg0 #decrement
+	ADD|IMMB reg0 16 reg1
 	LOAD reg0 0 reg3
 	SUB reg2 reg3 reg4 #volume = difference of start point minus current windback column
 	IFLESSS|IMMB reg4 0 SkipSaving #skip bad volume
@@ -67,9 +69,7 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	IFEQ|IMMB reg0 0 SkipSaving #skip first column if it has no backing
 	STORE reg1 reg4 0 #store the volume in second array 
 	label SkipSaving
-	ADD|IMMB reg0 1 reg0 #increment
-	ADD|IMMB reg0 16 reg1
-	IFLESSU reg3 reg5 WindForwards #boundary check
+	IFLESSU reg3 reg5 WindBackTwo #boundary check
 	RETURN 0 0 0
 
 label SumLoop
