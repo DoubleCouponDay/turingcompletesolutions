@@ -35,6 +35,8 @@ ADD|IMMALL 16 0 reg1 #reset second array index
 CALL 0 0 SumLoop
 
 label WindbackLoop #start scanning backwards for the next local maximum
+	ADD|IMMB reg2 0 reg3 #set default previous value to starting column
+	label WindbackOne
 	SUB|IMMB reg0 1 reg0 #decrement
 	ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column		
 	IFGREATES|IMMB reg0 0 NotSmallestIndex #boundary check
@@ -44,16 +46,16 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	PUSH reg4 0 0
 	ADD|IMMB reg0 16 reg1
 	SUB|IMMB reg2 1 reg2 #decrease the starting column in case there could be a lower match
-	IFGREATES|IMMB reg2 0 WindbackLoop
+	IFGREATES|IMMB reg2 0 WindbackOne
 	RETURN 0 0 0
 	
 	label NotSmallestIndex
 	ADD|IMMALL 0 0 reg4
 	ADD|IMMB reg3 0 reg4
 	LOAD reg0 0 reg3 #load the previous column
-	IFLESSU reg3 reg2 WindbackLoop #stop winding back once a same height column is found
+	IFLESSU reg3 reg2 WindbackOne #stop winding back once a same height column is found
 	SUB reg3 reg4 reg4 #detect positive gradient on end. prevent endless slope level
-	IFLESSES|IMMB reg4 0 WindbackLoop
+	IFLESSES|IMMB reg4 0 WindbackOne
 	
 	ADD|IMMB reg3 0 reg5 #use this as the end point column
 	POP 0 0 reg4
