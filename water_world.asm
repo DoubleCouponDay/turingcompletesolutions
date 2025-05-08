@@ -54,6 +54,7 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	label WindForwards
 	LOAD reg0 0 reg3
 	SUB reg2 reg3 reg4 #volume = difference of start point minus current windback column
+	IFLESSU|IMMB reg4 0 SkipSaving #skip bad volume
 	IFGREATU|IMMB reg4 0 NotStartingIndex #if its bigger than or equal to the starting column, stop winding back
 	RETURN 0 0 0
 	label NotStartingIndex
