@@ -1,11 +1,10 @@
 #reg0 = column index / loop1 (0 - 15)
 #reg1 = windback index (16 - 31)
 #reg2 = start point column
-#reg3 = largest column (Loop)
 #reg3 = windback column (WindbackLoop)
 #reg4 = temp function pointer (WindbackLoop)
 #reg4 = calculation (WindbackLoop)
-#reg5 = previous column (WindBackLoop)
+#reg5 = end point column (WindBackLoop)
 #reg5 = summed volume (SumLoop)
 #STACK0 = save point column index
 
@@ -49,8 +48,15 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	label NotSmallestIndex
 	LOAD reg0 0 reg3 #load the previous column
 	IFLESSU reg3 reg2 WindbackLoop #stop winding back once a same height column is found
+	
+	ADD|IMMB reg3 0 reg5 #use this as the end point column index
+	POP 0 0 reg4
+	POP 0 0 reg0
+	PUSH reg0 0 0
+	PUSH reg4 0 0
 	ADD|IMMALL 0 0 reg4 #clear temp function pointer
-
+	LOAD reg0 0 reg2 #reset starting column size
+	
 	label WindForwards
 	LOAD reg0 0 reg3
 	SUB reg2 reg3 reg4 #volume = difference of start point minus current windback column
@@ -63,7 +69,7 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	label SkipSaving
 	ADD|IMMB reg0 1 reg0 #increment
 	ADD|IMMB reg0 16 reg1
-	IFNEQ|IMMB reg0 16 WindForwards #boundary check
+	IFLESSU reg3 reg5 WindForwards #boundary check
 	RETURN 0 0 0
 
 label SumLoop
