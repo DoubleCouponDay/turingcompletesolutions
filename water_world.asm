@@ -38,7 +38,9 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	SUB|IMMB reg0 1 reg0 #decrement
 	ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column		
 	IFGREATES|IMMB reg0 0 NotSmallestIndex #boundary check
-	
+	POP 0 0 reg0 #reset the column index to the starting point
+	PUSH reg0 0 0
+	ADD|IMMB reg0 16 reg1
 	SUB|IMMB reg2 1 reg2 #decrease the starting column in case there could be a lower match
 	IFGREATES|IMMB reg2 0 WindbackLoop
 	RETURN 0 0 0
