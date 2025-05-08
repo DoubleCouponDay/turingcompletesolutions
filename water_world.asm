@@ -24,14 +24,15 @@ label Loop
 	ADD|IMMB reg2 0 reg3 #the new largest column
 	IFEQ|IMMALL 0 0 DontWindBack #skip checking this column since it has no backing
 	label DontSaveLargest
+
 	IFLESSEU reg2 reg5 DontWindBack #only sum when a positive gradient is detected
 	PUSH reg0 0 0 #save point column index
 	PUSH reg3 0 0 #save largest column
 	CALL 0 0 WindbackLoop
-	label DontWindBack
-
 	POP 0 0 reg3 #remove largest column
 	POP 0 0 reg0 #remove save point
+
+	label DontWindBack
 	ADD|IMMB reg2 0 reg5 #make current column the previous column
 	ADD|IMMB reg0 1 reg0 #increment column loop index
 	IFNEQ|IMMB reg0 16 Loop #if column index within bounds, continue looping
