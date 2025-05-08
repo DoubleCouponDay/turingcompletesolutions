@@ -53,7 +53,7 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	label NotSmallestIndex
 	ADD|IMMB reg3 0 reg4
 	LOAD reg0 0 reg3 #load the previous column
-	IFLESSU reg3 reg2 WindbackOne #stop winding back once a same height column is found
+	IFLESSEU reg3 reg2 WindbackOne #stop winding back once a same height column is found
 	SUB reg3 reg4 reg4 #detect positive gradient on end. prevent endless slope level
 	IFLESSES|IMMB reg4 0 WindbackOne
 	
