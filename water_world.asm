@@ -36,11 +36,11 @@ CALL 0 0 SumLoop
 
 label WindbackLoop #start scanning backwards for the next local maximum
 	SUB|IMMB reg0 1 reg0 #decrement
-	ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column
+	ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column	
 	LOAD reg0 0 reg3 #load the previous column
-	IFEQ|IMMB reg0 0 NotSmallestIndex #boundary check
+	IFGREATES|IMMB reg0 0 NotSmallestIndex #boundary check
 	RETURN 0 0 0
-	label NotSmallestIndex	
+	label NotSmallestIndex
 	IFLESSU reg3 reg2 WindbackLoop #stop winding back once a same height column is found
 
 	label WindForwards
