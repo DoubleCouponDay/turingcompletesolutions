@@ -49,6 +49,7 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	label NotSmallestIndex
 	LOAD reg0 0 reg3 #load the previous column
 	IFLESSU reg3 reg2 WindbackLoop #stop winding back once a same height column is found
+	ADD|IMMALL 0 0 reg4 #clear temp function pointer
 
 	label WindForwards
 	ADD|IMMB reg0 1 reg0 #increment
