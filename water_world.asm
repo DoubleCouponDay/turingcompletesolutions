@@ -44,13 +44,13 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	POP 0 0 reg0
 	PUSH reg0 0 0
 	PUSH reg4 0 0
+	ADD|IMMALL 0 0 reg4
 	ADD|IMMB reg0 16 reg1
 	SUB|IMMB reg2 1 reg2 #decrease the starting column in case there could be a lower match
 	IFGREATES|IMMB reg2 0 WindbackOne
 	RETURN 0 0 0
 	
 	label NotSmallestIndex
-	ADD|IMMALL 0 0 reg4
 	ADD|IMMB reg3 0 reg4
 	LOAD reg0 0 reg3 #load the previous column
 	IFLESSU reg3 reg2 WindbackOne #stop winding back once a same height column is found
