@@ -46,6 +46,8 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	PUSH reg4 0 0
 	ADD|IMMALL 0 0 reg4
 	ADD|IMMB reg0 16 reg1
+
+	#TODO: this won't work because subtracting prevents negative gradient check with previous columns. 
 	SUB|IMMB reg2 1 reg2 #decrease the starting column in case there could be a lower match
 	IFGREATES|IMMB reg2 0 WindbackOne
 	RETURN 0 0 0
