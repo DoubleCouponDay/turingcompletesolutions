@@ -52,8 +52,6 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	ADD|IMMALL 0 0 reg4 #clear temp function pointer
 
 	label WindForwards
-	ADD|IMMB reg0 1 reg0 #increment
-	ADD|IMMB reg0 16 reg1
 	LOAD reg0 0 reg3
 	SUB reg2 reg3 reg4 #volume = difference of start point minus current windback column
 	IFGREATU|IMMB reg4 0 NotStartingIndex #if its bigger than or equal to the starting column, stop winding back
@@ -62,7 +60,9 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	IFEQ|IMMB reg0 0 SkipSaving #skip first column if it has no backing
 	STORE reg1 reg4 0 #store the volume in second array 
 	label SkipSaving
-	IFNEQ|IMMB reg0 0 WindForwards #boundary check
+	ADD|IMMB reg0 1 reg0 #increment
+	ADD|IMMB reg0 16 reg1
+	IFNEQ|IMMB reg0 16 WindForwards #boundary check
 	RETURN 0 0 0
 
 label SumLoop
