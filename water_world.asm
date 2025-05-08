@@ -3,6 +3,7 @@
 #reg2 = start point column
 #reg3 = windback column (WindbackLoop)
 #reg4 = temp function pointer (WindbackLoop)
+#reg4 = temp previous previous gradient (WindBackLoop)
 #reg4 = calculation (WindbackLoop)
 #reg5 = end point column (WindBackLoop)
 #reg5 = summed volume (SumLoop)
@@ -45,9 +46,14 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	SUB|IMMB reg2 1 reg2 #decrease the starting column in case there could be a lower match
 	IFGREATES|IMMB reg2 0 WindbackLoop
 	RETURN 0 0 0
+	
 	label NotSmallestIndex
+	ADD|IMMALL 0 0 reg4
+	ADD|IMMB reg3 0 reg4
 	LOAD reg0 0 reg3 #load the previous column
 	IFLESSU reg3 reg2 WindbackLoop #stop winding back once a same height column is found
+	SUB reg3 reg4 reg4 #detect positive gradient on end. prevent endless slope level
+	IFLESSES|IMMB reg4 0 WindbackLoop
 	
 	ADD|IMMB reg3 0 reg5 #use this as the end point column
 	POP 0 0 reg4
