@@ -3,11 +3,11 @@
 #reg2 = start point column
 #reg3 = largest column (Loop)
 #reg3 = windback column (WindbackLoop)
-#reg4 = calculation
+#reg4 = temp function pointer (WindbackLoop)
+#reg4 = calculation (WindbackLoop)
 #reg5 = previous column (WindBackLoop)
 #reg5 = summed volume (SumLoop)
 #STACK0 = save point column index
-#STACK1 = save largest column
 
 IFEQ|IMMALL 0 0 4 #add breakpoint here
 label Loop
@@ -22,7 +22,7 @@ label Loop
 
 	IFLESSEU reg2 reg5 DontWindBack #only sum when a positive gradient is detected
 	PUSH reg0 0 0 #save point column index
-	CALL 0 0 WindbackLoop
+	CALL 0 0 WindbackLoop #I have to use call and put the function pointer of the stack because I want to conditionally save. reduces stack overloading
 	POP 0 0 reg0 #remove save point
 
 	label DontWindBack
@@ -38,8 +38,10 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	SUB|IMMB reg0 1 reg0 #decrement
 	ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column		
 	IFGREATES|IMMB reg0 0 NotSmallestIndex #boundary check
-	POP 0 0 reg0 #reset the column index to the starting point
+	POP 0 0 reg4 #reset the column index to the starting point
+	POP 0 0 reg0
 	PUSH reg0 0 0
+	PUSH reg4 0 0
 	ADD|IMMB reg0 16 reg1
 	SUB|IMMB reg2 1 reg2 #decrease the starting column in case there could be a lower match
 	IFGREATES|IMMB reg2 0 WindbackLoop
