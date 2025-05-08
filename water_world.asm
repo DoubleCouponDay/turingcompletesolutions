@@ -21,11 +21,11 @@ label Loop
 	label DontSkipColumn
 
 	IFLESSEU reg2 reg5 DontWindBack #only sum when a positive gradient is detected
-	PUSH reg0 0 0 #save point column index
+	PUSH 0 0 reg0 #save point column index
 	CALL 0 0 FindStartingColumn
 	POP 0 0 reg0 #remove save point
 	IFEQ|IMMB reg3 0 DontWindBack
-	PUSH reg0 0 0 #save point column index
+	PUSH 0 0 reg0 #save point column index
 	CALL 0 0 WindbackLoop
 	POP 0 0 reg0 #remove save point
 
