@@ -6,18 +6,18 @@
 #reg4 = temp previous previous gradient (WindBackLoop)
 #reg4 = calculation (WindbackLoop)
 #reg5 = end point column (WindBackLoop)
-#reg5 = summed volume (SumLoop)
+#reg5 = summed volume (OutputLoop)
 #STACK0 = save point column index
 
 IFEQ|IMMALL 0 0 4 #add breakpoint here
-label Loop
+label InputLoop
 	ADD|IMMB input 0 reg2 #read the current column height
 	STORE reg0 reg2 0 #store the column height in ram, first array
 	
 	IFNEQ|IMMB reg0 0 DontSkipColumn #skip the first column	
 	ADD|IMMB reg2 0 reg5 #make current column the previous column
 	ADD|IMMB reg0 1 reg0 #increment current column index
-	IFEQ|IMMALL 0 0 Loop
+	IFEQ|IMMALL 0 0 InputLoop
 	label DontSkipColumn
 
 	IFLESSEU reg2 reg5 DontWindBack #only sum when a positive gradient is detected
@@ -28,11 +28,11 @@ label Loop
 	label DontWindBack
 	ADD|IMMB reg2 0 reg5 #make current column the previous column
 	ADD|IMMB reg0 1 reg0 #increment column loop index
-	IFNEQ|IMMB reg0 16 Loop #if column index within bounds, continue looping
+	IFNEQ|IMMB reg0 16 InputLoop #if column index within bounds, continue looping
 
 ADD|IMMALL 0 0 reg5 #clear previous registers for second usage
 ADD|IMMALL 16 0 reg1 #reset second array index
-CALL 0 0 SumLoop
+CALL 0 0 OutputLoop
 
 label WindbackLoop #start scanning backwards for the next local maximum
 	ADD|IMMB reg2 0 reg3 #set default previous value to starting column
@@ -82,10 +82,10 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	IFLESSU reg3 reg5 WindBackTwo #boundary check
 	RETURN 0 0 0
 
-label SumLoop
+label OutputLoop
 	LOAD reg1 0 reg4 #load calculated volume
 	ADD reg4 reg5 reg5 #add to the sum
 	ADD|IMMB reg1 1 reg1 #increment second array index
-	IFNEQ|IMMB reg1 31 SumLoop #loop over every second array item
+	IFNEQ|IMMB reg1 31 OutputLoop #loop over every second array item
 
 ADD|IMMB reg5 0 output #send the calculation to output
