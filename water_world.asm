@@ -40,17 +40,17 @@ label WindbackLoop #start scanning backwards for the next local maximum
 	SUB|IMMB reg0 1 reg0 #decrement
 	ADD|IMMB reg0 16 reg1 #set the windback index to second array, current column		
 	IFGREATES|IMMB reg0 0 NotSmallestIndex #boundary check
-	POP 0 0 reg4 #reset the column index to the starting point
-	POP 0 0 reg0
-	PUSH reg0 0 0
-	PUSH reg4 0 0
-	ADD|IMMALL 0 0 reg4
-	ADD|IMMB reg0 16 reg1
-
-	#TODO: this won't work because subtracting prevents negative gradient check with previous columns. 
-	SUB|IMMB reg2 1 reg2 #decrease the starting column in case there could be a lower match
-	IFGREATES|IMMB reg2 0 WindbackOne
 	RETURN 0 0 0
+	#Subtract the starting column by 1 to improve matches
+	#POP 0 0 reg4 #reset the column index to the starting point
+	#POP 0 0 reg0
+	#PUSH reg0 0 0
+	#PUSH reg4 0 0
+	#ADD|IMMALL 0 0 reg4
+	#ADD|IMMB reg0 16 reg1
+	#SUB|IMMB reg2 1 reg2 #decrease the starting column in case there could be a lower match
+	#IFGREATES|IMMB reg2 2 WindbackOne #Two is the minimum vessel column height
+	#RETURN 0 0 0
 	
 	label NotSmallestIndex
 	ADD|IMMB reg3 0 reg4
