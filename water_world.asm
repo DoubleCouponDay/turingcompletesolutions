@@ -46,7 +46,7 @@ label ExamineLoop
 	ADD|IMMB reg2 1 reg2 #increment row index
 	ADD|IMMALL 0 0 reg0 #reset ColumnIndex
 	ADD|IMMALL 16 0 reg1 #reset VolumeIndex
-	IFLESSU|IMMB reg2 15 ExamineLoop #iterate ExamineLoop if row index not max
+	IFLESSEU|IMMB reg2 10 ExamineLoop #iterate ExamineLoop if row index not max
 
 ADD|IMMALL 0 0 reg0 #reset column index
 ADD|IMMALL 16 0 reg1 #reset reg1 for second usage
