@@ -3,7 +3,7 @@
 #reg2 = RowIndex (InputLoop)
 #reg3 = StartIndex (InputLoop)
 #reg4 = CurrentHeight (InputLoop, FindEnd, FindStart)
-#reg4 = CurrentVolume (OutputLoop)
+#reg4 = CurrentVolume (FloodRow, OutputLoop)
 #reg5 = Calculation (InputLoop)
 #reg5 = EndIndex (InputLoop)
 #reg5 = Sum (OutputLoop)
@@ -31,15 +31,15 @@ label ExamineLoop
 	IFNEQ reg5 reg2 NotFillable2 #skip if cell below (column, row) is not filled	
 	PUSH reg0 0 0 #backup ColumnIndex
 	CALL 0 0 FindEnd #call FindEnd for this cell
-	IFGREATS|IMMB reg5 -1 NotFillable2 #skip if EndIndex is -1
+	IFEQ|IMMB reg5 -1 NotFillable2 #skip if EndIndex is -1
 	CALL 0 0 FindStart #call FindStart for this valid endindex
-	IFGREATS|IMMB reg3 -1 NotFillable2 #skip if StartIndex is -1
+	IFEQ|IMMB reg3 -1 NotFillable2 #skip if StartIndex is -1
 	CALL 0 0 FloodRow #flood the row
 	POP 0 0 reg0 #reset ColumnIndex
 	ADD|IMMALL 16 0 reg0 #16 is the end of the loop. saves lines on incrementing row index
 	
 	label NotFillable2 #skip location1
-	IFGREATS|IMMB reg3 -1 Flooded #skip if StartIndex is not -1
+	IFEQ|IMMB reg3 -1 Flooded #skip if StartIndex is not -1
 	POP 0 0 reg0 #bring back ColumnIndex backup
 	label NotFillable1
 	ADD|IMMB reg0 1 reg0 #increment ColumnIndex
@@ -82,14 +82,14 @@ label FindStart
 label FloodRow
 	ADD|IMMB reg0 1 reg0 #increment ColumnIndex
 	ADD|IMMB reg0 16 reg1 #set VolumeIndex based on ColumnIndex
-	LOAD reg1 0 reg4 #load the previous volume
+	LOAD reg1 0 reg4 #load the CurrentVolume
 	ADD|IMMB reg4 1 reg4 #increment the volume
 	STORE reg1 reg4 0 #store the new volume
 	IFNEQ reg0 reg5 FloodRow #continue looping if ColumnIndex is not equal to EndIndex
 	RETURN 0 0 0
 
 label OutputLoop
-	LOAD reg1 0 reg4 #load calculated volume
+	LOAD reg1 0 reg4 #load CurrentVolume
 	ADD reg4 reg5 reg5 #add to the sum
 	ADD|IMMB reg1 1 reg1 #increment second array index
 	IFNEQ|IMMB reg1 31 OutputLoop #loop over every second array item
