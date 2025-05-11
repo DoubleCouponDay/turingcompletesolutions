@@ -22,7 +22,7 @@ ADD|IMMALL 0 0 reg0 #reset ColumnIndex
 
 label ExamineLoop
 	LOAD reg0 0 reg4 #load the current columns height	
-	IFGREATEU reg4 reg2 NotFillable1 #skip if (column, row) is not empty space
+	IFGREATU reg4 reg2 NotFillable1 #skip if (column, row) is not empty space
 	LOAD reg1 0 reg5 #get any saved volume for calculation
 	ADD reg4 reg5 reg5 #sum the volume plus height
 	IFNEQ reg5 reg2 NotFillable2 #skip if cell below (column, row) is not filled	
@@ -60,7 +60,7 @@ CALL 0 0 OutputLoop
 label FindEnd
 	ADD|IMMB reg0 1 reg0 #increment ColumnIndex
 	LOAD reg0 0 reg4 #load the CurrentHeight
-	IFGREATU reg2 reg4 NotSoil1 #continue looping if not soil
+	IFGREATEU reg2 reg4 NotSoil1 #continue looping if not soil
 	ADD|IMMB reg0 0 reg5 #save the EndIndex
 	RETURN 0 0 0
 	label NotSoil1
@@ -70,7 +70,7 @@ label FindEnd
 label FindStart
 	SUB|IMMB reg0 1 reg0 #decrement ColumnIndex
 	LOAD reg0 0 reg4 #load the CurrentHeight
-	IFGREATU reg2 reg4 NotSoil2 #continue looping if not soil
+	IFGREATEU reg2 reg4 NotSoil2 #continue looping if not soil
 	ADD|IMMB reg0 0 reg3 #save the StartIndex
 	RETURN 0 0 0
 	label NotSoil2
