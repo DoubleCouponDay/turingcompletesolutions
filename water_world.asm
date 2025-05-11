@@ -8,7 +8,6 @@
 #reg5 = EndIndex (InputLoop)
 #reg5 = Sum (OutputLoop)
 
-IFEQ|IMMALL 0 0 4 #add breakpoint here
 ADD|IMMALL -1 0 reg3 #save -1 to StartIndex
 ADD|IMMALL -1 0 reg5 #save -1 to EndIndex
 ADD|IMMALL 16 0 reg1 #default value for VolumeIndex
@@ -30,6 +29,7 @@ label ExamineLoop
 	ADD|IMMB reg5 1 reg5 #align with row index for comparison
 	IFNEQ reg5 reg2 NotFillable2 #skip if cell below (column, row) is not filled	
 	PUSH reg0 0 0 #backup ColumnIndex
+	ADD|IMMALL -1 0 reg5 #clear calculation
 	CALL 0 0 FindEnd #call FindEnd for this cell
 	IFEQ|IMMB reg5 -1 NotFillable2 #skip if EndIndex is -1
 	CALL 0 0 FindStart #call FindStart for this valid endindex
