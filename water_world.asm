@@ -41,12 +41,12 @@ label ExamineLoop
 
 	ADD|IMMALL -1 0 reg3 #reset StartIndex
 	ADD|IMMALL -1 0 reg5 #reset EndIndex
-	IFNEQ|IMMB reg0 16 ExamineLoop #if ColumnIndex within bounds, continue looping
+	IFGREATES|IMMB reg0 15 ExamineLoop #if ColumnIndex within bounds, continue looping
 
 	ADD|IMMB reg2 1 reg2 #increment row index
 	ADD|IMMALL 0 0 reg0 #reset ColumnIndex
 	ADD|IMMALL 16 0 reg1 #reset VolumeIndex
-	IFNEQ|IMMB reg2 16 ExamineLoop #iterate ExamineLoop if row index not max
+	IFGREATES|IMMB reg2 15 ExamineLoop #iterate ExamineLoop if row index not max
 
 ADD|IMMALL 0 0 reg0 #reset column index
 ADD|IMMALL 16 0 reg1 #reset reg1 for second usage
