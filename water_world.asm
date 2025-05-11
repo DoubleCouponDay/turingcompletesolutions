@@ -11,7 +11,6 @@
 ADD|IMMALL -1 0 reg3 #save -1 to StartIndex
 ADD|IMMALL -1 0 reg5 #save -1 to EndIndex
 ADD|IMMALL 16 0 reg1 #default value for VolumeIndex
-ADD|IMMALL 1 0 reg2 #default value for row index
 
 label InputLoop
 	ADD|IMMB input 0 reg4 #read the current column height
@@ -26,7 +25,6 @@ label ExamineLoop
 	IFGREATEU reg4 reg2 NotFillable1 #skip if (column, row) is not empty space
 	LOAD reg1 0 reg5 #get any saved volume for calculation
 	ADD reg4 reg5 reg5 #sum the volume plus height
-	ADD|IMMB reg5 1 reg5 #align with row index for comparison
 	IFNEQ reg5 reg2 NotFillable2 #skip if cell below (column, row) is not filled	
 	PUSH reg0 0 0 #backup ColumnIndex
 	ADD|IMMALL -1 0 reg5 #clear calculation
