@@ -10,7 +10,7 @@
 
 IFEQ|IMMALL 0 0 4 #add breakpoint here
 ADD|IMMALL -1 0 reg3 #save -1 to StartIndex
-ADD|IMMALL -1 0 reg4 #save -1 to EndIndex
+ADD|IMMALL -1 0 reg5 #save -1 to EndIndex
 ADD|IMMALL 16 0 reg1 #default value for VolumeIndex
 ADD|IMMALL 1 0 reg2 #default value for row index
 
@@ -46,8 +46,8 @@ label ExamineLoop
 	ADD|IMMB reg0 16 reg1 #increment VolumeIndex
 
 	label Flooded #skip location2
-	ADD|IMMB reg3 0 reg3 #reset StartIndex
-	ADD|IMMB reg5 0 reg5 #reset EndIndex
+	ADD|IMMALL -1 0 reg3 #reset StartIndex
+	ADD|IMMALL -1 0 reg5 #reset EndIndex
 	IFNEQ|IMMB reg0 16 ExamineLoop #if ColumnIndex within bounds, continue looping
 
 	ADD|IMMB reg2 1 reg2 #increment row index
