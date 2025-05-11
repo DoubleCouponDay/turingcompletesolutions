@@ -15,11 +15,16 @@ ADD|IMMALL 16 0 reg1 #default value for VolumeIndex
 ADD|IMMALL 1 0 reg2 #default value for row index
 
 label InputLoop
-	ADD|IMMB input 0 reg2 #read the current column height
-	STORE reg0 reg2 0 #store the column height in ram, first array
-	LOAD reg0 0 reg4 #load the current columns height
-	
-	IFGREATU reg0 reg4 NotFillable #skip if (column, row) is not empty space
+	ADD|IMMB input 0 reg4 #read the current column height
+	STORE reg0 reg4 0 #store the column height in ram, first array
+	ADD|IMMB reg0 1 reg0 #increment loop index
+	IFNEQ|IMMB reg0 16 InputLoop #store all 16 inputs in this loop
+
+ADD|IMMALL 0 0 reg0 #reset ColumnIndex
+
+label ExamineLoop
+	LOAD reg0 0 reg4 #load the current columns height	
+	IFGREATEU reg4 reg2 NotFillable1 #skip if (column, row) is not empty space
 	LOAD reg1 0 reg5 #get any saved volume for calculation
 	ADD reg4 reg5 reg5 #sum the volume plus height
 	ADD|IMMB reg5 1 reg5 #align with row index for comparison
