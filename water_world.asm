@@ -51,7 +51,7 @@ label ExamineLoop
 	IFNEQ|IMMB reg0 16 ExamineLoop #if ColumnIndex within bounds, continue looping
 
 	ADD|IMMB reg2 1 reg2 #increment row index
-	ADD|IMMALL 0 0 #reset ColumnIndex
+	ADD|IMMALL 0 0 reg0 #reset ColumnIndex
 	ADD|IMMALL 16 0 reg1 #reset VolumeIndex
 	IFNEQ|IMMB reg2 16 ExamineLoop #iterate ExamineLoop if row index not max
 
@@ -62,20 +62,20 @@ CALL 0 0 OutputLoop
 label FindEnd
 	ADD|IMMB reg0 1 reg0 #increment ColumnIndex
 	LOAD reg0 0 reg4 #load the CurrentHeight
-	IFGREATU|IMMB reg2 reg4 NotSoil #continue looping if not soil
+	IFGREATU|IMMB reg2 reg4 NotSoil1 #continue looping if not soil
 	ADD|IMMB reg0 0 reg5 #save the EndIndex
 	RETURN 0 0 0
-	label NotSoil
+	label NotSoil1
 	IFNEQ|IMMB reg0 16 FindEnd #continue looping if ColumnIndex is not 16
 	RETURN 0 0 0
 
 label FindStart
 	ADD|IMMB reg0 1 reg0 #decrement ColumnIndex
 	LOAD reg0 0 reg4 #load the CurrentHeight
-	IFGREATU|IMMB reg2 reg4 NotSoil #continue looping if not soil
+	IFGREATU|IMMB reg2 reg4 NotSoil2 #continue looping if not soil
 	ADD|IMMB reg0 0 reg3 #save the StartIndex
 	RETURN 0 0 0
-	label NotSoil
+	label NotSoil2
 	IFNEQ|IMMB reg0 0 FindStart #continue looping if ColumnIndex is not 0
 	RETURN 0 0 0
 
