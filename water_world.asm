@@ -37,13 +37,13 @@ label ExamineLoop
 	ADD|IMMALL 16 0 reg0 #16 is the end of the loop. saves lines on incrementing row index
 	
 	label NotFillable2 #skip location1
-	IFEQ|IMMB reg3 -1 Flooded #skip if StartIndex is not -1
+	IFEQ|IMMB reg3 -1 NotFlooded #skip if StartIndex is not -1
 	POP 0 0 reg0 #bring back ColumnIndex backup
 	label NotFillable1
 	ADD|IMMB reg0 1 reg0 #increment ColumnIndex
 	ADD|IMMB reg0 16 reg1 #increment VolumeIndex
 
-	label Flooded #skip location2
+	label NotFlooded #skip location2
 	ADD|IMMALL -1 0 reg3 #reset StartIndex
 	ADD|IMMALL -1 0 reg5 #reset EndIndex
 	IFNEQ|IMMB reg0 16 ExamineLoop #if ColumnIndex within bounds, continue looping
