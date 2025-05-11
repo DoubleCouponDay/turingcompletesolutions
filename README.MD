@@ -57,7 +57,7 @@ The first Byte can have the Logical Or operator applied to combine an Operation 
 
 - 0 = ADD
 
-    Add the left address to the right address and send to the data addssre.
+    Add the left address to the right address and send to the data address. Commonly used for moving variables from one location to another. Registers can be used with the address bus and the data bus in the same instruction, which is useful for incrementing pointers or loop counters.
 
     ADD left_address right_address data_address
 
