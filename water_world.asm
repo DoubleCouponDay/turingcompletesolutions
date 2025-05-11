@@ -47,12 +47,12 @@ label ExamineLoop
 	label Flooded #skip location2
 	ADD|IMMB reg3 0 reg3 #reset StartIndex
 	ADD|IMMB reg5 0 reg5 #reset EndIndex
-	IFNEQ|IMMB reg0 16 InputLoop #if ColumnIndex within bounds, continue looping
+	IFNEQ|IMMB reg0 16 ExamineLoop #if ColumnIndex within bounds, continue looping
 
 	ADD|IMMB reg2 1 reg2 #increment row index
 	ADD|IMMALL 0 0 #reset ColumnIndex
 	ADD|IMMALL 16 0 reg1 #reset VolumeIndex
-	IFNEQ|IMMB reg2 16 InputLoop #iterate InputLoop if row index not max
+	IFNEQ|IMMB reg2 16 ExamineLoop #iterate ExamineLoop if row index not max
 
 ADD|IMMALL 16 0 reg1 #reset reg1 for second usage
 ADD|IMMALL 0 0 reg5 #reset reg5 for second usage
