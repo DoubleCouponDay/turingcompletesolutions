@@ -70,7 +70,7 @@ label FindEnd
 	RETURN 0 0 0
 
 label FindStart
-	ADD|IMMB reg0 1 reg0 #decrement ColumnIndex
+	SUB|IMMB reg0 1 reg0 #decrement ColumnIndex
 	LOAD reg0 0 reg4 #load the CurrentHeight
 	IFGREATU|IMMB reg2 reg4 NotSoil2 #continue looping if not soil
 	ADD|IMMB reg0 0 reg3 #save the StartIndex
