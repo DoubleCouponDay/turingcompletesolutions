@@ -28,19 +28,20 @@ label ExamineLoop
 	LOAD reg1 0 reg5 #get any saved volume for calculation
 	ADD reg4 reg5 reg5 #sum the volume plus height
 	ADD|IMMB reg5 1 reg5 #align with row index for comparison
-	IFNEQ reg2 reg5 NotFillable #skip if cell below (column, row) is not filled	
+	IFNEQ reg5 reg2 NotFillable2 #skip if cell below (column, row) is not filled	
 	PUSH reg0 0 0 #backup ColumnIndex
 	CALL 0 0 FindEnd #call FindEnd for this cell
-	IFGREATS|IMMB reg5 -1 NotFillable #skip if EndIndex is -1
+	IFGREATS|IMMB reg5 -1 NotFillable2 #skip if EndIndex is -1
 	CALL 0 0 FindStart #call FindStart for this valid endindex
-	IFGREATS|IMMB reg3 -1 NotFillable #skip if StartIndex is -1
+	IFGREATS|IMMB reg3 -1 NotFillable2 #skip if StartIndex is -1
 	CALL 0 0 FloodRow #flood the row
 	POP 0 0 reg0 #reset ColumnIndex
 	ADD|IMMALL 16 0 reg0 #16 is the end of the loop. saves lines on incrementing row index
 	
-	label NotFillable #skip location1
+	label NotFillable2 #skip location1
 	IFGREATS|IMMB reg3 -1 Flooded #skip if StartIndex is not -1
 	POP 0 0 reg0 #bring back ColumnIndex backup
+	label NotFillable1
 	ADD|IMMB reg0 1 reg0 #increment ColumnIndex
 	ADD|IMMB reg0 16 reg1 #increment VolumeIndex
 
