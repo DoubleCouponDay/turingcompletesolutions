@@ -36,13 +36,12 @@ label ExamineLoop
 	POP 0 0 reg0 #reset ColumnIndex
 	
 	label NotFillable2 #skip location1
-	IFEQ|IMMB reg3 -1 NotFlooded #skip if StartIndex is not -1
+	IFEQ|IMMB reg3 -1 NotFillable1 #skip if StartIndex is not -1
 	POP 0 0 reg0 #bring back ColumnIndex backup
-	label NotFillable1
+	label NotFillable1 #skip location2
 	ADD|IMMB reg0 1 reg0 #increment ColumnIndex
 	ADD|IMMB reg0 16 reg1 #increment VolumeIndex
 
-	label NotFlooded #skip location2
 	ADD|IMMALL -1 0 reg3 #reset StartIndex
 	ADD|IMMALL -1 0 reg5 #reset EndIndex
 	IFNEQ|IMMB reg0 16 ExamineLoop #if ColumnIndex within bounds, continue looping
