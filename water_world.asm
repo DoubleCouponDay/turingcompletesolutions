@@ -80,9 +80,11 @@ label FindStart
 label FloodRow
 	ADD|IMMB reg0 1 reg0 #increment ColumnIndex
 	ADD|IMMB reg0 16 reg1 #set VolumeIndex based on ColumnIndex
+	IFEQ reg0 reg5 DontSave
 	LOAD reg1 0 reg4 #load the CurrentVolume
 	ADD|IMMB reg4 1 reg4 #increment the volume
 	STORE reg1 reg4 0 #store the new volume
+	label DontSave
 	IFNEQ reg0 reg5 FloodRow #continue looping if ColumnIndex is not equal to EndIndex
 	RETURN 0 0 0
 
