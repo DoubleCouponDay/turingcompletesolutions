@@ -50,7 +50,7 @@ label ExamineLoop
 
 ADD|IMMALL 0 0 reg0 #reset column index
 ADD|IMMALL 16 0 reg1 #reset reg1 for second usage
-ADD|IMMALL 0 0 reg4 #prepare reg5 for the sum
+ADD|IMMALL 0 0 reg5 #prepare reg5 for the sum
 CALL 0 0 OutputLoop
 
 label FindEnd
