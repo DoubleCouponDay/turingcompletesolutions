@@ -34,7 +34,6 @@ label ExamineLoop
 	IFEQ|IMMB reg3 -1 NotFillable2 #skip if StartIndex is -1
 	CALL 0 0 FloodRow #flood the row
 	POP 0 0 reg0 #reset ColumnIndex
-	ADD|IMMALL 16 0 reg0 #16 is the end of the loop. saves lines on incrementing row index
 	
 	label NotFillable2 #skip location1
 	IFEQ|IMMB reg3 -1 NotFlooded #skip if StartIndex is not -1
