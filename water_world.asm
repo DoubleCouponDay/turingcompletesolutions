@@ -59,7 +59,7 @@ label FindEnd
 	ADD|IMMB reg0 0 reg5 #save the EndIndex
 	RETURN 0 0 0
 	label NotSoil1
-	IFNEQ|IMMB reg0 16 FindEnd #continue looping if ColumnIndex is not 16
+	IFLESSU|IMMB reg0 15 FindEnd #continue looping if ColumnIndex is not 16
 	RETURN 0 0 0
 
 label FindStart
@@ -69,7 +69,7 @@ label FindStart
 	ADD|IMMB reg0 0 reg3 #save the StartIndex
 	RETURN 0 0 0
 	label NotSoil2
-	IFNEQ|IMMB reg0 0 FindStart #continue looping if ColumnIndex is not 0
+	IFGREATU|IMMB reg0 0 FindStart #continue looping if ColumnIndex is not 0
 	RETURN 0 0 0
 
 label FloodRow
