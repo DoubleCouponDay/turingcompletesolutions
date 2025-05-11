@@ -48,8 +48,8 @@ label ExamineLoop
 	ADD|IMMALL 16 0 reg1 #reset VolumeIndex
 	IFNEQ|IMMB reg2 16 ExamineLoop #iterate ExamineLoop if row index not max
 
+ADD|IMMALL 0 0 reg0 #reset column index
 ADD|IMMALL 16 0 reg1 #reset reg1 for second usage
-ADD|IMMALL 0 0 reg5 #reset reg5 for second usage
 CALL 0 0 OutputLoop
 
 label FindEnd
