@@ -25,16 +25,17 @@ label ExamineLoop
 	IFGREATU reg4 reg2 NotFillable1 #skip if (column, row) is not empty space
 	LOAD reg1 0 reg5 #get any saved volume for calculation
 	ADD reg4 reg5 reg5 #sum the volume plus height
-	IFNEQ reg5 reg2 NotFillable2 #skip if cell below (column, row) is not filled	
+	IFNEQ reg5 reg2 NotFillable1 #skip if cell below (column, row) is not filled	
 	ADD|IMMALL -1 0 reg5 #clear calculation
 	CALL 0 0 FindEnd #call FindEnd for this cell
-	IFEQ|IMMB reg5 -1 NotFillable2 #skip if EndIndex is -1
+	IFEQ|IMMB reg5 -1 NotFillable1 #skip if EndIndex is -1
+	PUSH reg0 0 0 #save the ColumnIndex for later
 	CALL 0 0 FindStart #call FindStart for this valid endindex
 	IFEQ|IMMB reg3 -1 NotFillable2 #skip if StartIndex is -1
 	CALL 0 0 FloodRow #flood the row
 	
 	label NotFillable2 #skip location1
-	IFEQ|IMMB reg3 -1 NotFillable1 #skip if StartIndex is not -1
+	POP 0 0 reg0 #bring back the ColumnIndex if found end but not start
 	label NotFillable1 #skip location2
 	ADD|IMMB reg0 1 reg0 #increment ColumnIndex
 	ADD|IMMB reg0 16 reg1 #increment VolumeIndex
