@@ -1,0 +1,63 @@
+module _4bz_multiplier (clk, rst, Input_1, Input_2, Output);
+  parameter UUID = 0;
+  parameter NAME = "";
+  input wire clk;
+  input wire rst;
+
+  input  wire [7:0] Input_1;
+  input  wire [7:0] Input_2;
+  output  wire [7:0] Output;
+
+  TC_And # (.UUID(64'd907068680849745253 ^ UUID), .BIT_WIDTH(64'd8)) And8_0 (.in0(wire_8), .in1(wire_13), .out(wire_4));
+  TC_Shl # (.UUID(64'd3206790822091232973 ^ UUID), .BIT_WIDTH(64'd8)) Shl8_1 (.in(wire_0), .shift(wire_25), .out(wire_13));
+  TC_Constant # (.UUID(64'd3408427068390245148 ^ UUID), .BIT_WIDTH(64'd8), .value(8'h0)) Constant8_2 (.out(wire_25));
+  TC_And # (.UUID(64'd3903649380732565336 ^ UUID), .BIT_WIDTH(64'd8)) And8_3 (.in0(wire_3), .in1(wire_17), .out(wire_16));
+  TC_And # (.UUID(64'd2736460334511943116 ^ UUID), .BIT_WIDTH(64'd8)) And8_4 (.in0(wire_6), .in1(wire_22), .out(wire_10));
+  TC_And # (.UUID(64'd4152097916978110169 ^ UUID), .BIT_WIDTH(64'd8)) And8_5 (.in0(wire_14), .in1(wire_11), .out(wire_1));
+  TC_Constant # (.UUID(64'd1997998546677622047 ^ UUID), .BIT_WIDTH(64'd8), .value(8'h1)) Constant8_6 (.out(wire_12));
+  TC_Shl # (.UUID(64'd746974185372900639 ^ UUID), .BIT_WIDTH(64'd8)) Shl8_7 (.in(wire_0), .shift(wire_12), .out(wire_17));
+  TC_Shl # (.UUID(64'd3815897862853300523 ^ UUID), .BIT_WIDTH(64'd8)) Shl8_8 (.in(wire_0), .shift(wire_20), .out(wire_22));
+  TC_Constant # (.UUID(64'd1603866426093387258 ^ UUID), .BIT_WIDTH(64'd8), .value(8'h3)) Constant8_9 (.out(wire_23));
+  TC_Shl # (.UUID(64'd2345513850855111383 ^ UUID), .BIT_WIDTH(64'd8)) Shl8_10 (.in(wire_0), .shift(wire_23), .out(wire_11));
+  TC_Constant # (.UUID(64'd4490516002631294692 ^ UUID), .BIT_WIDTH(64'd8), .value(8'hFF)) Constant8_11 (.out(wire_2));
+  TC_Switch # (.UUID(64'd3994109586050447705 ^ UUID), .BIT_WIDTH(64'd8)) Switch8_12 (.en(wire_19), .in(wire_2), .out(wire_8));
+  TC_Switch # (.UUID(64'd1370514355902035912 ^ UUID), .BIT_WIDTH(64'd8)) Switch8_13 (.en(wire_7), .in(wire_2), .out(wire_3));
+  TC_Switch # (.UUID(64'd4082294842259226556 ^ UUID), .BIT_WIDTH(64'd8)) Switch8_14 (.en(wire_21), .in(wire_2), .out(wire_6));
+  TC_Switch # (.UUID(64'd4169204446048783001 ^ UUID), .BIT_WIDTH(64'd8)) Switch8_15 (.en(wire_18), .in(wire_2), .out(wire_14));
+  TC_Add # (.UUID(64'd1912475777665229550 ^ UUID), .BIT_WIDTH(64'd8)) Add8_16 (.in0(wire_4), .in1(wire_16), .ci(1'd0), .out(wire_5), .co());
+  TC_Add # (.UUID(64'd280954749360933281 ^ UUID), .BIT_WIDTH(64'd8)) Add8_17 (.in0(wire_10), .in1(wire_1), .ci(1'd0), .out(wire_15), .co());
+  TC_Add # (.UUID(64'd2004771623104442153 ^ UUID), .BIT_WIDTH(64'd8)) Add8_18 (.in0(wire_5), .in1(wire_15), .ci(1'd0), .out(wire_24), .co());
+  TC_Constant # (.UUID(64'd4119353606638031792 ^ UUID), .BIT_WIDTH(64'd8), .value(8'h2)) Constant8_19 (.out(wire_20));
+  TC_Splitter8 # (.UUID(64'd282804551179830991 ^ UUID)) Splitter8_20 (.in(wire_9), .out0(wire_19), .out1(wire_7), .out2(wire_21), .out3(wire_18), .out4(), .out5(), .out6(), .out7());
+
+  wire [7:0] wire_0;
+  assign wire_0 = Input_1;
+  wire [7:0] wire_1;
+  wire [7:0] wire_2;
+  wire [7:0] wire_3;
+  wire [7:0] wire_4;
+  wire [7:0] wire_5;
+  wire [7:0] wire_6;
+  wire [0:0] wire_7;
+  wire [7:0] wire_8;
+  wire [7:0] wire_9;
+  assign wire_9 = Input_2;
+  wire [7:0] wire_10;
+  wire [7:0] wire_11;
+  wire [7:0] wire_12;
+  wire [7:0] wire_13;
+  wire [7:0] wire_14;
+  wire [7:0] wire_15;
+  wire [7:0] wire_16;
+  wire [7:0] wire_17;
+  wire [0:0] wire_18;
+  wire [0:0] wire_19;
+  wire [7:0] wire_20;
+  wire [0:0] wire_21;
+  wire [7:0] wire_22;
+  wire [7:0] wire_23;
+  wire [7:0] wire_24;
+  assign Output = wire_24;
+  wire [7:0] wire_25;
+
+endmodule

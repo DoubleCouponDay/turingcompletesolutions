@@ -1,0 +1,64 @@
+module Comparatorz_zmz_Signed (clk, rst, Opcode, Input_1, Input_2, Output);
+  parameter UUID = 0;
+  parameter NAME = "";
+  input wire clk;
+  input wire rst;
+
+  input  wire [7:0] Opcode;
+  input  wire [7:0] Input_1;
+  input  wire [7:0] Input_2;
+  output  wire [0:0] Output;
+
+  TC_Equal # (.UUID(64'd1998307752698260594 ^ UUID), .BIT_WIDTH(64'd8)) Equal8_0 (.in0(wire_3), .in1(wire_6), .out(wire_2));
+  TC_Splitter8 # (.UUID(64'd1521565151774461435 ^ UUID)) Splitter8_1 (.in(wire_5), .out0(wire_14), .out1(wire_13), .out2(wire_21), .out3(wire_20), .out4(), .out5(wire_18), .out6(), .out7());
+  TC_Or # (.UUID(64'd2070628117543450174 ^ UUID), .BIT_WIDTH(64'd1)) Or_2 (.in0(wire_2), .in1(wire_22), .out(wire_16));
+  TC_And # (.UUID(64'd293495440602691776 ^ UUID), .BIT_WIDTH(64'd1)) And_3 (.in0(wire_7), .in1(wire_23), .out(wire_4));
+  TC_Switch # (.UUID(64'd2350627198471744806 ^ UUID), .BIT_WIDTH(64'd1)) Switch1_4 (.en(wire_15), .in(wire_12), .out(wire_0_2));
+  TC_Switch # (.UUID(64'd1641530680475734722 ^ UUID), .BIT_WIDTH(64'd1)) Switch1_5 (.en(wire_9), .in(wire_4), .out(wire_0_0));
+  TC_Or # (.UUID(64'd2850723525144969401 ^ UUID), .BIT_WIDTH(64'd1)) Or_6 (.in0(wire_2), .in1(wire_11), .out(wire_12));
+  TC_Switch # (.UUID(64'd1062460180333831234 ^ UUID), .BIT_WIDTH(64'd1)) Switch1_7 (.en(wire_19), .in(wire_10), .out(wire_0_3));
+  TC_Not # (.UUID(64'd2512510952407476540 ^ UUID), .BIT_WIDTH(64'd1)) Not_8 (.in(wire_18), .out(wire_17));
+  TC_LessI # (.UUID(64'd793696844502667712 ^ UUID), .BIT_WIDTH(64'd8)) LessI8_9 (.in0(wire_3), .in1(wire_6), .out(wire_11));
+  TC_Not # (.UUID(64'd3827714959956819625 ^ UUID), .BIT_WIDTH(64'd1)) Not_10 (.in(wire_2), .out(wire_8));
+  TC_Switch # (.UUID(64'd3128355681772843970 ^ UUID), .BIT_WIDTH(64'd1)) Switch1_11 (.en(wire_1), .in(wire_16), .out(wire_0_1));
+  TC_And # (.UUID(64'd820956697524587388 ^ UUID), .BIT_WIDTH(64'd1)) And_12 (.in0(wire_8), .in1(wire_11), .out(wire_10));
+  TC_Not # (.UUID(64'd3477555919316803406 ^ UUID), .BIT_WIDTH(64'd1)) Not_13 (.in(wire_11), .out(wire_23));
+  TC_Not # (.UUID(64'd2702128621474746303 ^ UUID), .BIT_WIDTH(64'd1)) Not_14 (.in(wire_11), .out(wire_22));
+  TC_Not # (.UUID(64'd1001467330331466997 ^ UUID), .BIT_WIDTH(64'd1)) Not_15 (.in(wire_2), .out(wire_7));
+  _4bz_decoder # (.UUID(64'd909285150452600699 ^ UUID)) _4bz_decoder_16 (.clk(clk), .rst(rst), .bit1(wire_14), .bit2(wire_13), .bit3(wire_21), .bit4(wire_20), .Disable(wire_17), .\8 (wire_19), .\9 (wire_15), .\10 (wire_9), .\11 (wire_1), .\12 (), .\13 (), .\14 (), .\15 (), .\0 (), .\1 (), .\2 (), .\3 (), .\4 (), .\5 (), .\6 (), .\7 ());
+
+  wire [0:0] wire_0;
+  wire [0:0] wire_0_0;
+  wire [0:0] wire_0_1;
+  wire [0:0] wire_0_2;
+  wire [0:0] wire_0_3;
+  assign wire_0 = wire_0_0|wire_0_1|wire_0_2|wire_0_3;
+  assign Output = wire_0;
+  wire [0:0] wire_1;
+  wire [0:0] wire_2;
+  wire [7:0] wire_3;
+  assign wire_3 = Input_1;
+  wire [0:0] wire_4;
+  wire [7:0] wire_5;
+  assign wire_5 = Opcode;
+  wire [7:0] wire_6;
+  assign wire_6 = Input_2;
+  wire [0:0] wire_7;
+  wire [0:0] wire_8;
+  wire [0:0] wire_9;
+  wire [0:0] wire_10;
+  wire [0:0] wire_11;
+  wire [0:0] wire_12;
+  wire [0:0] wire_13;
+  wire [0:0] wire_14;
+  wire [0:0] wire_15;
+  wire [0:0] wire_16;
+  wire [0:0] wire_17;
+  wire [0:0] wire_18;
+  wire [0:0] wire_19;
+  wire [0:0] wire_20;
+  wire [0:0] wire_21;
+  wire [0:0] wire_22;
+  wire [0:0] wire_23;
+
+endmodule
